@@ -1,0 +1,788 @@
+
+/* =========================================
+   1. VARIÁVEIS E RESET
+========================================= */
+
+:root {
+    --cor-fundo: #fdf9f2;
+    --cor-verde: #086638;
+    --cor-verde-escuro: #064b32;
+    --cor-amarelo: #e6b800;
+    --cor-dourado: #d9ad35;
+    --cor-texto: #242424;
+
+    --fonte-principal: Arial, Helvetica, sans-serif;
+    --largura-container: 1440px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    color: var(--cor-texto);
+    background-color: var(--cor-fundo);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+/* =========================================
+   2. CABEÇALHO
+========================================= */
+
+.cabecalho {
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    background-color: var(--cor-fundo);
+}
+
+.cabecalho__container {
+    width: calc(100% - 64px);
+    max-width: var(--largura-container);
+    min-height: 100px;
+    margin-inline: auto;
+
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr) 230px;
+    align-items: center;
+    column-gap: 24px;
+}
+
+/* =========================================
+   3. LOGO
+========================================= */
+
+.cabecalho__logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+}
+
+.cabecalho__logo img {
+    display: block;
+    width: 200px;
+    height: 90px;
+    object-fit: contain;
+}
+
+/* =========================================
+   4. TÍTULOS DA NAVEGAÇÃO
+========================================= */
+
+.navegacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.navegacao__lista {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+}
+
+.navegacao__lista li {
+    flex: 0 0 auto;
+}
+
+.navegacao__link {
+    display: inline-block;
+    padding: 12px 3px;
+
+    color: var(--cor-verde-escuro);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.navegacao__link:hover {
+    color: var(--cor-amarelo);
+    font-weight: 700;
+}
+
+.navegacao__link[aria-current="page"] {
+    color: var(--cor-verde-escuro);
+}
+
+.navegacao__link::before,
+.navegacao__link::after {
+    content: none;
+}
+
+/* =========================================
+   5. BOTÃO DE AGENDAMENTO
+========================================= */
+
+.cabecalho__agendamento {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    color: #ffffff;
+    background-color: var(--cor-verde);
+    border: 2px solid var(--cor-verde);
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    text-decoration: none;
+    box-shadow: 0 5px 14px rgb(6 75 50 / 12%);
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.cabecalho__agendamento-icone {
+    display: block;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* =========================================
+   6. MENU HAMBÚRGUER
+========================================= */
+
+.menu__botao {
+    display: none;
+
+    width: 38px;
+    height: 38px;
+    padding: 5px 0;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    appearance: none;
+
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.menu__linha {
+    display: block;
+    width: 29px;
+    height: 2px;
+
+    background-color: var(--cor-verde-escuro);
+    border: none;
+    border-radius: 0;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.menu__botao:focus {
+    outline: none;
+}
+
+.menu__botao:focus-visible {
+    outline: 2px solid var(--cor-dourado);
+    outline-offset: 4px;
+}
+
+/* =========================================
+   7. TELAS INTERMEDIÁRIAS
+   Mantém os títulos visíveis até 900 px.
+========================================= */
+
+@media (max-width: 1150px) and (min-width: 901px) {
+    .cabecalho__container {
+        width: calc(100% - 40px);
+        grid-template-columns: 165px minmax(0, 1fr) 195px;
+        column-gap: 14px;
+    }
+
+    .cabecalho__logo img {
+        width: 160px;
+        height: 80px;
+    }
+
+    .navegacao__link {
+        padding-inline: 2px;
+        font-size: 14px;
+    }
+
+    .cabecalho__agendamento {
+        padding-inline: 9px;
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .cabecalho__agendamento-icone {
+        width: 19px;
+        height: 19px;
+    }
+}
+
+/* =========================================
+   8. TABLETS E JANELAS MAIS ESTREITAS
+========================================= */
+
+@media (max-width: 900px) {
+    .cabecalho__container {
+        position: relative;
+        width: calc(100% - 32px);
+        min-height: 82px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .cabecalho__logo {
+        flex: 0 1 auto;
+    }
+
+    .cabecalho__logo img {
+        width: 145px;
+        height: 74px;
+    }
+
+    .cabecalho__agendamento {
+        width: auto;
+        min-height: 44px;
+        margin-left: auto;
+        padding: 10px 13px;
+        gap: 7px;
+        font-size: 12px;
+    }
+
+    .cabecalho__agendamento-icone {
+        width: 20px;
+        height: 20px;
+    }
+
+    .menu__botao {
+        display: flex;
+        order: 3;
+    }
+
+    .navegacao {
+        position: absolute;
+        top: 100%;
+        left: -16px;
+        right: -16px;
+
+        display: none;
+        width: auto;
+        padding: 12px 24px 22px;
+
+        background-color: var(--cor-fundo);
+        box-shadow: 0 8px 14px rgb(0 0 0 / 8%);
+    }
+
+    .navegacao.navegacao--aberta {
+        display: flex;
+    }
+
+    .navegacao__lista {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 4px;
+        width: 100%;
+    }
+
+    .navegacao__lista li {
+        width: 100%;
+    }
+
+    .navegacao__link {
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .navegacao__link:hover {
+        color: var(--cor-amarelo);
+        font-weight: 700;
+    }
+}
+
+/* =========================================
+   9. CELULARES
+========================================= */
+
+@media (max-width: 480px) {
+    .cabecalho__container {
+        width: calc(100% - 20px);
+        min-height: 72px;
+        gap: 7px;
+    }
+
+    .cabecalho__logo img {
+        width: 105px;
+        height: 60px;
+    }
+
+    .cabecalho__agendamento {
+        min-height: 38px;
+        padding: 8px 8px;
+        gap: 5px;
+        font-size: 11px;
+    }
+
+    .cabecalho__agendamento-icone {
+        width: 17px;
+        height: 17px;
+    }
+
+    .menu__botao {
+        width: 30px;
+        height: 38px;
+    }
+
+    .menu__linha {
+        width: 25px;
+    }
+
+    .navegacao {
+        left: -10px;
+        right: -10px;
+        padding-inline: 20px;
+    }
+}
+
+/* =========================================
+   10. CELULARES MUITO ESTREITOS
+========================================= */
+
+@media (max-width: 350px) {
+    .cabecalho__container {
+        width: calc(100% - 14px);
+        gap: 5px;
+    }
+
+    .cabecalho__logo img {
+        width: 86px;
+        height: 54px;
+    }
+
+    .cabecalho__agendamento {
+        padding-inline: 6px;
+        gap: 4px;
+        font-size: 10px;
+    }
+
+    .cabecalho__agendamento-icone {
+        width: 15px;
+        height: 15px;
+    }
+
+    .menu__botao {
+        width: 27px;
+    }
+
+    .menu__linha {
+        width: 23px;
+    }
+}
+
+
+
+/* =========================================
+   BANNER PRINCIPAL — POUSADA ALVORADA
+========================================= */
+
+.banner {
+    width: 100%;
+    padding: 32px 0;
+    overflow: hidden;
+    background-color: #f1f3e9;
+}
+
+.banner__container {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 20px;
+    width: calc(100% - 64px);
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+/* CONTEÚDO DO BANNER */
+
+.banner__conteudo {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 0;
+    padding: 16px 0;
+}
+
+.banner__titulo {
+    margin-bottom: 12px;
+    color: var(--cor-verde-escuro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(38px, 3.5vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.banner__titulo-destaque {
+    display: block;
+    color: var(--cor-verde);
+    font-size: 1.2em;
+}
+
+.banner__subtitulo {
+    max-width: 430px;
+    margin-bottom: 16px;
+    color: var(--cor-verde-escuro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(20px, 1.9vw, 26px);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.banner__detalhe {
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin-bottom: 18px;
+    background-color: var(--cor-dourado);
+    border-radius: 2px;
+}
+
+.banner__descricao {
+    max-width: 420px;
+    margin-bottom: 24px;
+    color: #343a33;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* BOTÃO DE AGENDAMENTO */
+
+.banner__botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    max-width: 355px;
+    min-height: 66px;
+    padding: 14px 19px;
+    color: #ffffff;
+    background-color: var(--cor-verde);
+    border: 2px solid var(--cor-verde);
+    border-radius: 18px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+    box-shadow: 0 5px 14px rgb(6 75 50 / 12%);
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.banner__botao:hover,
+.cabecalho__agendamento:hover {
+    color: var(--cor-verde-escuro);
+    background-color: var(--cor-dourado);
+    border-color: var(--cor-dourado);
+    box-shadow: 0 8px 18px rgb(6 75 50 / 18%);
+    transform: translateY(-2px);
+}
+
+.banner__botao:focus-visible,
+.cabecalho__agendamento:focus-visible {
+    outline: 3px solid var(--cor-verde-escuro);
+    outline-offset: 4px;
+}
+
+.banner__botao-icone {
+    display: block;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.banner__botao-texto {
+    flex: 1;
+}
+
+.banner__botao-seta {
+    flex: 0 0 auto;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+/* FOTO PRINCIPAL */
+
+.banner__imagem {
+    position: relative;
+    width: 100%;
+    height: 460px;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgb(36 36 36 / 10%);
+}
+
+.banner__imagem img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+}
+
+/* ANIMAÇÃO SUAVE DE ENTRADA */
+
+html.js .banner__conteudo,
+html.js .banner__imagem {
+    opacity: 0;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+html.js .banner__conteudo {
+    transform: translateX(-28px);
+}
+
+html.js .banner__imagem {
+    transform: translateX(28px);
+    transition-delay: 0.15s;
+}
+
+html.js .banner__conteudo.banner__elemento--visivel,
+html.js .banner__imagem.banner__elemento--visivel {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* TABLETS */
+
+@media (max-width: 900px) {
+    .banner {
+        padding: 26px 0;
+    }
+
+    .banner__container {
+        width: calc(100% - 40px);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    .banner__titulo {
+        font-size: clamp(32px, 4.5vw, 43px);
+    }
+
+    .banner__subtitulo {
+        font-size: 19px;
+    }
+
+    .banner__descricao {
+        font-size: 15px;
+    }
+
+    .banner__botao {
+        min-height: 60px;
+        padding: 12px;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .banner__botao-icone {
+        flex-basis: 27px;
+        width: 27px;
+        height: 27px;
+    }
+
+    .banner__imagem {
+        height: 380px;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+    .banner {
+        padding: 20px 0 28px;
+    }
+
+    .banner__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: calc(100% - 32px);
+        max-width: 460px;
+    }
+
+    /* FOTO PRIMEIRO */
+
+    .banner__imagem {
+        order: 1;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        border-radius: 14px;
+    }
+
+    /* TEXTO E BOTÃO ABAIXO DA FOTO */
+
+    .banner__conteudo {
+        order: 2;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+
+    .banner__titulo {
+        margin-bottom: 10px;
+        font-size: 40px;
+        line-height: 1.05;
+    }
+
+    .banner__titulo-destaque {
+        font-size: 1.12em;
+    }
+
+    .banner__subtitulo {
+        max-width: 380px;
+        margin-bottom: 14px;
+        font-size: 21px;
+    }
+
+    .banner__detalhe {
+        margin: 0 auto 14px;
+    }
+
+    .banner__descricao {
+        max-width: 400px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .banner__botao {
+        justify-content: space-between;
+        width: 100%;
+        max-width: 360px;
+        min-height: 64px;
+        padding: 13px 17px;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .banner__botao-icone {
+        flex-basis: 30px;
+        width: 30px;
+        height: 30px;
+    }
+
+    html.js .banner__conteudo,
+    html.js .banner__imagem {
+        transform: translateY(20px);
+    }
+
+    html.js .banner__conteudo.banner__elemento--visivel,
+    html.js .banner__imagem.banner__elemento--visivel {
+        transform: translateY(0);
+    }
+}
+
+/* CELULARES ESTREITOS */
+
+@media (max-width: 350px) {
+    .banner__container {
+        width: calc(100% - 24px);
+        gap: 16px;
+    }
+
+    .banner__titulo {
+        font-size: 34px;
+    }
+
+    .banner__subtitulo {
+        font-size: 19px;
+    }
+
+    .banner__descricao {
+        font-size: 14px;
+    }
+
+    .banner__botao {
+        gap: 8px;
+        padding-inline: 10px;
+        font-size: 12px;
+    }
+}
+
+/* ACESSIBILIDADE */
+
+@media (prefers-reduced-motion: reduce) {
+    html.js .banner__conteudo,
+    html.js .banner__imagem {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .banner__botao,
+    .cabecalho__agendamento {
+        transition: none;
+    }
+
+    .banner__botao:hover,
+    .cabecalho__agendamento:hover {
+        transform: none;
+    }
+}
