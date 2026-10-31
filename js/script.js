@@ -12,6 +12,7 @@ if (botaoMenu && navegacao) {
 
     function fecharMenu() {
         navegacao.classList.remove("navegacao--aberta");
+
         botaoMenu.setAttribute("aria-expanded", "false");
         botaoMenu.setAttribute(
             "aria-label",
@@ -23,7 +24,11 @@ if (botaoMenu && navegacao) {
         const aberto =
             navegacao.classList.toggle("navegacao--aberta");
 
-        botaoMenu.setAttribute("aria-expanded", String(aberto));
+        botaoMenu.setAttribute(
+            "aria-expanded",
+            String(aberto)
+        );
+
         botaoMenu.setAttribute(
             "aria-label",
             aberto
@@ -57,7 +62,7 @@ if (botaoMenu && navegacao) {
 
 
 /* ========================================
-   ANIMAÇÃO DO BANNER
+   ANIMAÇÃO DO BANNER — POUSADA ALVORADA
    Foto primeiro; texto em seguida
 ======================================== */
 
@@ -65,23 +70,40 @@ const imagemBanner = document.querySelector(".banner__imagem");
 const conteudoBanner = document.querySelector(".banner__conteudo");
 
 if (imagemBanner && conteudoBanner) {
+
+    function revelarBanner() {
+        imagemBanner.classList.add(
+            "banner__elemento--visivel"
+        );
+
+        conteudoBanner.classList.add(
+            "banner__elemento--visivel"
+        );
+    }
+
     const movimentoReduzido = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
     ).matches;
 
     if (movimentoReduzido) {
-        imagemBanner.classList.add(
-            "banner__elemento--visivel"
-        );
-        conteudoBanner.classList.add(
-            "banner__elemento--visivel"
-        );
+
+        /* Respeita a preferência por movimento reduzido. */
+        revelarBanner();
+
     } else {
+
+        /* Ativa as animações definidas no CSS. */
         document.documentElement.classList.add("js");
 
-        // Prepara a posição inicial antes de revelar os elementos.
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
+        /* Garante que o banner não fique invisível. */
+        const segurancaBanner = window.setTimeout(() => {
+            revelarBanner();
+        }, 1500);
+
+        /* Revela a foto primeiro e o texto em seguida. */
+        window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => {
+
                 imagemBanner.classList.add(
                     "banner__elemento--visivel"
                 );
@@ -91,7 +113,78 @@ if (imagemBanner && conteudoBanner) {
                         "banner__elemento--visivel"
                     );
                 }, 350);
+
+                window.clearTimeout(segurancaBanner);
             });
         });
+    }
+}
+
+
+/* ========================================
+   ANIMAÇÃO — CONHEÇA A POUSADA
+   Segue o padrão visual do banner
+======================================== */
+
+const secaoSobre = document.querySelector(".sobre");
+
+if (secaoSobre) {
+    const elementosSobre = secaoSobre.querySelectorAll(
+        ".sobre__titulo, " +
+        ".sobre__detalhe, " +
+        ".sobre__descricao, " +
+        ".sobre__foto, " +
+        ".sobre__botao"
+    );
+
+    const movimentoReduzidoSobre = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (movimentoReduzidoSobre) {
+        elementosSobre.forEach((elemento) => {
+            elemento.classList.add(
+                "sobre__elemento--visivel"
+            );
+        });
+    } else {
+        document.documentElement.classList.add("js");
+
+        elementosSobre.forEach((elemento, indice) => {
+            elemento.classList.add("sobre__elemento");
+
+            elemento.style.transitionDelay =
+                `${Math.min(indice * 100, 400)}ms`;
+        });
+
+        if ("IntersectionObserver" in window) {
+            const observadorSobre = new IntersectionObserver(
+                (entradas, observador) => {
+                    entradas.forEach((entrada) => {
+                        if (entrada.isIntersecting) {
+                            entrada.target.classList.add(
+                                "sobre__elemento--visivel"
+                            );
+
+                            observador.unobserve(entrada.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.15,
+                    rootMargin: "0px 0px -30px 0px"
+                }
+            );
+
+            elementosSobre.forEach((elemento) => {
+                observadorSobre.observe(elemento);
+            });
+        } else {
+            elementosSobre.forEach((elemento) => {
+                elemento.classList.add(
+                    "sobre__elemento--visivel"
+                );
+            });
+        }
     }
 }

@@ -45,7 +45,8 @@ button {
 ========================================= */
 
 .cabecalho {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1000;
     width: 100%;
     background-color: var(--cor-fundo);
@@ -783,6 +784,270 @@ html.js .banner__imagem.banner__elemento--visivel {
 
     .banner__botao:hover,
     .cabecalho__agendamento:hover {
+        transform: none;
+    }
+}
+/* =========================================
+   SEÇÃO: CONHEÇA A POUSADA
+========================================= */
+
+.sobre {
+    width: 100%;
+    padding: 48px 0;
+    background-color: #fffdf9;
+}
+
+.sobre__container {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: 40px;
+
+    width: calc(100% - 64px);
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+.sobre__conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.sobre__titulo {
+    margin: 0;
+
+    color: var(--cor-verde-escuro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(30px, 3vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sobre__detalhe {
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin: 16px 0 20px;
+
+    background-color: var(--cor-dourado);
+    border-radius: 2px;
+}
+
+.sobre__descricao {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 0 24px;
+
+    color: var(--cor-texto);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* BOTÃO WHATSAPP */
+
+.sobre__botao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    width: 100%;
+    max-width: 355px;
+    min-height: 66px;
+    margin: 0;
+    padding: 14px 19px;
+
+    color: #ffffff;
+    background-color: var(--cor-verde);
+    border: 2px solid var(--cor-verde);
+    border-radius: 18px;
+
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+
+    box-shadow: 0 5px 14px rgb(6 75 50 / 12%);
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.sobre__botao-icone {
+    display: block;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.sobre__botao::after {
+    content: "›";
+    flex: 0 0 auto;
+
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.sobre__botao:hover {
+    color: var(--cor-verde-escuro);
+    background-color: var(--cor-dourado);
+    border-color: var(--cor-dourado);
+    box-shadow: 0 8px 18px rgb(6 75 50 / 18%);
+    transform: translateY(-2px);
+}
+
+.sobre__botao:focus-visible {
+    outline: 3px solid var(--cor-verde-escuro);
+    outline-offset: 4px;
+}
+
+/* GALERIA DE FOTOGRAFIAS */
+
+.sobre__galeria {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 16px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.sobre__foto {
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+    overflow: hidden;
+
+    background-color: #f1f3e9;
+    border-radius: 10px;
+}
+
+.sobre__foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+    .sobre {
+        padding: 36px 0;
+    }
+
+    .sobre__container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+
+        width: calc(100% - 40px);
+    }
+
+    .sobre__titulo {
+        font-size: clamp(27px, 3.5vw, 34px);
+    }
+
+    .sobre__descricao {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .sobre__galeria {
+        gap: 14px;
+    }
+
+    .sobre__botao {
+        max-width: 355px;
+    }
+}
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+    .sobre {
+        padding: 28px 0;
+    }
+
+    .sobre__container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 22px;
+
+        width: calc(100% - 32px);
+        max-width: 460px;
+    }
+
+    .sobre__conteudo {
+        align-items: stretch;
+    }
+
+    .sobre__titulo {
+        font-size: 30px;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .sobre__detalhe {
+        margin: 12px auto 18px;
+    }
+
+    .sobre__descricao {
+        max-width: none;
+        margin-bottom: 20px;
+
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .sobre__galeria {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .sobre__foto {
+        aspect-ratio: 4 / 3;
+    }
+
+    .sobre__botao {
+        align-self: center;
+        max-width: 360px;
+        min-height: 64px;
+        padding: 13px 17px;
+        font-size: 14px;
+    }
+
+    .sobre__botao-icone {
+        flex-basis: 30px;
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* ACESSIBILIDADE */
+
+@media (prefers-reduced-motion: reduce) {
+    .sobre__botao {
+        transition: none;
+    }
+
+    .sobre__botao:hover {
         transform: none;
     }
 }
