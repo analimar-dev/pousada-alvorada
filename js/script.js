@@ -188,3 +188,92 @@ if (secaoSobre) {
         }
     }
 }
+
+/* ========================================
+   ANIMAÇÃO — NOSSOS QUARTOS
+   Entrada suave e sequencial
+======================================== */
+
+const secaoQuartos = document.querySelector(".quartos");
+
+if (secaoQuartos) {
+
+    const elementosQuartos = secaoQuartos.querySelectorAll(
+        ".quartos__titulo, " +
+        ".quartos__detalhe, " +
+        ".quartos__descricao, " +
+        ".quartos__item, " +
+        ".quartos__agendamento"
+    );
+
+    const movimentoReduzidoQuartos = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (movimentoReduzidoQuartos) {
+
+        elementosQuartos.forEach((elemento) => {
+            elemento.classList.add(
+                "quartos__elemento--visivel"
+            );
+        });
+
+    } else {
+
+        document.documentElement.classList.add("js");
+
+        elementosQuartos.forEach((elemento, indice) => {
+
+            elemento.classList.add("quartos__elemento");
+
+            elemento.style.transitionDelay =
+                `${Math.min(indice * 120, 600)}ms`;
+
+        });
+
+        if ("IntersectionObserver" in window) {
+
+            const observadorQuartos = new IntersectionObserver(
+
+                (entradas, observador) => {
+
+                    entradas.forEach((entrada) => {
+
+                        if (entrada.isIntersecting) {
+
+                            entrada.target.classList.add(
+                                "quartos__elemento--visivel"
+                            );
+
+                            observador.unobserve(entrada.target);
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.15,
+                    rootMargin: "0px 0px -30px 0px"
+                }
+
+            );
+
+            elementosQuartos.forEach((elemento) => {
+                observadorQuartos.observe(elemento);
+            });
+
+        } else {
+
+            elementosQuartos.forEach((elemento) => {
+                elemento.classList.add(
+                    "quartos__elemento--visivel"
+                );
+            });
+
+        }
+
+    }
+
+}

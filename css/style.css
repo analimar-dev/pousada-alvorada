@@ -1876,3 +1876,66 @@ html.js .banner__imagem.banner__elemento--visivel {
     }
 
 }
+
+/* =========================================
+   ANIMAÇÃO — SEÇÃO NOSSOS QUARTOS
+========================================= */
+
+/* ENTRADA SUAVE DOS ELEMENTOS */
+
+html.js .quartos__elemento {
+    opacity: 0;
+    transform: translateY(28px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+/* ELEMENTOS VISÍVEIS */
+
+html.js .quartos__elemento--visivel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* MOVIMENTO SUAVE DAS FOTOGRAFIAS */
+
+.quartos__item {
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.quartos__imagem {
+    transition: transform 0.5s ease;
+}
+
+/* ZOOM SOMENTE EM DISPOSITIVOS COM MOUSE */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .quartos__item:hover .quartos__imagem {
+        transform: scale(1.035);
+    }
+
+}
+
+/* ACESSIBILIDADE: MOVIMENTO REDUZIDO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html.js .quartos__elemento {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .quartos__imagem {
+        transition: none;
+    }
+
+    .quartos__item:hover .quartos__imagem {
+        transform: none;
+    }
+
+}
