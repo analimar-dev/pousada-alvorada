@@ -1671,3 +1671,208 @@ html.js .banner__imagem.banner__elemento--visivel {
         transform: none;
     }
 }
+
+/* ========================================
+   RODAPÉ - POUSADA ALVORADA
+======================================== */
+
+.rodape {
+    width: 100%;
+    background-color: var(--cor-verde-escuro);
+    color: #ffffff;
+    padding: 60px 5% 25px;
+}
+
+/* CONTAINER PRINCIPAL */
+
+.rodape__container {
+    width: 100%;
+    max-width: var(--largura-container);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 35px;
+}
+
+/* COLUNAS */
+
+.rodape__coluna {
+    min-width: 0;
+}
+
+/* LOGOTIPO */
+
+.rodape__logo {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.rodape__logo img {
+    display: block;
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 18px;
+}
+
+.rodape__identidade p {
+    max-width: 260px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #f4f4f4;
+}
+
+/* TÍTULOS */
+
+.rodape__titulo {
+    color: var(--cor-dourado);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+/* LISTAS */
+
+.rodape__lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rodape__lista li {
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.rodape__lista a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rodape__lista a:hover {
+    color: var(--cor-dourado);
+    text-decoration: underline;
+}
+
+/* MAPA DO GOOGLE */
+
+.rodape__mapa iframe {
+    display: block;
+    width: 100%;
+    height: 220px;
+    border: 0;
+    border-radius: 10px;
+}
+
+/* PARTE INFERIOR DO RODAPÉ */
+
+.rodape__inferior {
+    width: 100%;
+    max-width: var(--largura-container);
+    margin: 45px auto 0;
+    padding-top: 25px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    text-align: center;
+}
+
+/* LINKS LEGAIS */
+
+.rodape__legal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 22px;
+}
+
+.rodape__legal a {
+    color: #ffffff;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rodape__legal a:hover {
+    color: var(--cor-dourado);
+    text-decoration: underline;
+}
+
+/* CRÉDITO PROFISSIONAL */
+
+.rodape__credito {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 8px 0;
+}
+
+.rodape__credito strong {
+    color: var(--cor-dourado);
+    font-weight: 600;
+}
+
+/* DIREITOS AUTORAIS */
+
+.rodape__direitos {
+    color: #e6e6e6;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin: 8px 0;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+/* TABLETS */
+
+@media (max-width: 1000px) {
+
+    .rodape__container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px 30px;
+    }
+
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+
+    .rodape {
+        padding: 45px 6% 25px;
+    }
+
+    .rodape__container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .rodape__identidade p {
+        max-width: 100%;
+    }
+
+    .rodape__mapa iframe {
+        height: 250px;
+    }
+
+    .rodape__inferior {
+        margin-top: 35px;
+    }
+
+    .rodape__legal {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .rodape__credito,
+    .rodape__direitos {
+        font-size: 0.82rem;
+    }
+
+}
