@@ -1384,3 +1384,290 @@ html.js .banner__imagem.banner__elemento--visivel {
         transform: none;
     }
 }
+
+/* =========================================
+   SEÇÃO: CAFÉ DA MANHÃ
+========================================= */
+
+.cafe-da-manha {
+    width: 100%;
+    padding: 48px 0;
+    background-color: #fffdf9;
+}
+
+.cafe-da-manha__container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+
+    width: calc(100% - 64px);
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+/* TÍTULO E APRESENTAÇÃO */
+
+.cafe-da-manha__conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.cafe-da-manha__titulo {
+    margin: 0;
+
+    color: var(--cor-verde-escuro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(30px, 3vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.cafe-da-manha__detalhe {
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin: 16px 0 18px;
+
+    background-color: var(--cor-dourado);
+    border-radius: 2px;
+}
+
+.cafe-da-manha__descricao {
+    width: 100%;
+    max-width: 700px;
+    margin: 0;
+
+    color: var(--cor-texto);
+    font-family: var(--fonte-principal);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* GALERIA DE FOTOGRAFIAS */
+
+.cafe-da-manha__galeria {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 24px;
+
+    width: 100%;
+}
+
+.cafe-da-manha__item {
+    min-width: 0;
+    margin: 0;
+}
+
+/* FOTOGRAFIAS — COMPUTADOR */
+
+.cafe-da-manha__imagem {
+    display: block;
+    width: 100%;
+    height: 340px;
+
+    object-fit: cover;
+    object-position: center 55%;
+
+    border-radius: 10px;
+    background-color: #e8e1d5;
+}
+
+/* BOTÃO DE RESERVA */
+
+.cafe-da-manha__agendamento {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.cafe-da-manha__botao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    width: 100%;
+    max-width: 355px;
+    min-height: 66px;
+    padding: 14px 19px;
+
+    color: #ffffff;
+    background-color: var(--cor-verde);
+    border: 2px solid var(--cor-verde);
+    border-radius: 18px;
+
+    font-family: var(--fonte-principal);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: none;
+
+    box-shadow: 0 5px 14px rgb(6 75 50 / 12%);
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.cafe-da-manha__botao-icone {
+    display: block;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.cafe-da-manha__botao-texto {
+    flex: 1;
+    text-align: center;
+}
+
+.cafe-da-manha__botao-seta {
+    flex: 0 0 auto;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.cafe-da-manha__botao:hover {
+    color: var(--cor-verde-escuro);
+    background-color: var(--cor-dourado);
+    border-color: var(--cor-dourado);
+    box-shadow: 0 8px 18px rgb(6 75 50 / 18%);
+    transform: translateY(-2px);
+}
+
+.cafe-da-manha__botao:focus-visible {
+    outline: 3px solid var(--cor-verde-escuro);
+    outline-offset: 4px;
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+
+    .cafe-da-manha {
+        padding: 36px 0;
+    }
+
+    .cafe-da-manha__container {
+        width: calc(100% - 40px);
+        gap: 24px;
+    }
+
+    .cafe-da-manha__galeria {
+        gap: 16px;
+    }
+
+    .cafe-da-manha__imagem {
+        height: 220px;
+    }
+}
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+
+    .cafe-da-manha {
+        padding: 28px 0;
+    }
+
+    .cafe-da-manha__container {
+        width: calc(100% - 32px);
+        max-width: 460px;
+        gap: 22px;
+    }
+
+    .cafe-da-manha__conteudo {
+        align-items: stretch;
+    }
+
+    .cafe-da-manha__titulo {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .cafe-da-manha__detalhe {
+        margin: 12px auto 18px;
+    }
+
+    .cafe-da-manha__descricao {
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .cafe-da-manha__galeria {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    /* PRESERVA A PROPORÇÃO ORIGINAL DAS FOTOS */
+
+    .cafe-da-manha__imagem {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .cafe-da-manha__agendamento {
+        margin-top: 0;
+    }
+
+    .cafe-da-manha__botao {
+        max-width: 360px;
+        min-height: 64px;
+        padding: 13px 17px;
+        font-size: 14px;
+    }
+
+    .cafe-da-manha__botao-icone {
+        flex-basis: 30px;
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* =========================================
+   CELULARES ESTREITOS
+========================================= */
+
+@media (max-width: 350px) {
+
+    .cafe-da-manha__container {
+        width: calc(100% - 24px);
+    }
+
+    .cafe-da-manha__botao {
+        gap: 8px;
+        padding-inline: 10px;
+        font-size: 12px;
+    }
+}
+
+/* =========================================
+   ACESSIBILIDADE
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cafe-da-manha__botao {
+        transition: none;
+    }
+
+    .cafe-da-manha__botao:hover {
+        transform: none;
+    }
+}
