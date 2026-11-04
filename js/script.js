@@ -1,4 +1,3 @@
-
 /* ========================================
    MENU DE NAVEGAÇÃO — POUSADA ALVORADA
 ======================================== */
@@ -60,65 +59,6 @@ if (botaoMenu && navegacao) {
     });
 }
 
-
-/* ========================================
-   ANIMAÇÃO DO BANNER — POUSADA ALVORADA
-   Foto primeiro; texto em seguida
-======================================== */
-
-const imagemBanner = document.querySelector(".banner__imagem");
-const conteudoBanner = document.querySelector(".banner__conteudo");
-
-if (imagemBanner && conteudoBanner) {
-
-    function revelarBanner() {
-        imagemBanner.classList.add(
-            "banner__elemento--visivel"
-        );
-
-        conteudoBanner.classList.add(
-            "banner__elemento--visivel"
-        );
-    }
-
-    const movimentoReduzido = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (movimentoReduzido) {
-
-        /* Respeita a preferência por movimento reduzido. */
-        revelarBanner();
-
-    } else {
-
-        /* Ativa as animações definidas no CSS. */
-        document.documentElement.classList.add("js");
-
-        /* Garante que o banner não fique invisível. */
-        const segurancaBanner = window.setTimeout(() => {
-            revelarBanner();
-        }, 1500);
-
-        /* Revela a foto primeiro e o texto em seguida. */
-        window.requestAnimationFrame(() => {
-            window.requestAnimationFrame(() => {
-
-                imagemBanner.classList.add(
-                    "banner__elemento--visivel"
-                );
-
-                window.setTimeout(() => {
-                    conteudoBanner.classList.add(
-                        "banner__elemento--visivel"
-                    );
-                }, 350);
-
-                window.clearTimeout(segurancaBanner);
-            });
-        });
-    }
-}
 
 /* ========================================
    ANIMAÇÃO DO BANNER — POUSADA ALVORADA
@@ -277,6 +217,7 @@ if (secaoBanner) {
     }
 }
 
+
 /* ========================================
    ANIMAÇÃO — CONHEÇA A POUSADA
    Fotografias primeiro; textos em seguida
@@ -414,6 +355,7 @@ if (secaoSobre) {
 
 }
 
+
 /* ========================================
    ANIMAÇÃO — NOSSOS QUARTOS
    Fotografias primeiro; textos em seguida
@@ -550,6 +492,8 @@ if (secaoQuartos) {
     }
 
 }
+
+
 /* ========================================
    ANIMAÇÃO — CAFÉ DA MANHÃ
    Fotografias primeiro; textos em seguida

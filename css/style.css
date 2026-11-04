@@ -1857,12 +1857,7 @@ html.js .animacao-elemento--visivel {
     transform: translateY(0);
 }
 
-/* Mantém o leve zoom das fotos dos quartos em computadores */
-@media (hover: hover) and (pointer: fine) {
-    .quartos__item:hover .quartos__imagem {
-        transform: scale(1.035);
-    }
-}
+
 
 /* Movimento reduzido: conteúdo sempre visível */
 
