@@ -583,7 +583,41 @@ button {
     object-position: center;
     border-radius: inherit;
 }
+/* =========================================
+   MOVIMENTO SUAVE — FOTO DO BANNER
+   Mesmo efeito da seção Nossos Quartos
+========================================= */
 
+/* TRANSIÇÃO SUAVE DA FOTOGRAFIA */
+
+.banner__imagem img {
+    transition: transform 0.5s ease;
+}
+
+/* ZOOM SOMENTE EM DISPOSITIVOS COM MOUSE */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .banner__imagem:hover img {
+        transform: scale(1.035);
+    }
+
+}
+
+/* ACESSIBILIDADE: MOVIMENTO REDUZIDO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .banner__imagem img {
+        transition: none;
+        transform: none;
+    }
+
+    .banner__imagem:hover img {
+        transform: none;
+    }
+
+}
 /* ANIMAÇÃO SUAVE DE ENTRADA */
 
 html.js .banner__conteudo,
@@ -939,6 +973,41 @@ html.js .banner__imagem.banner__elemento--visivel {
     object-fit: cover;
     object-position: center;
     border-radius: inherit;
+}
+/* =========================================
+   MOVIMENTO SUAVE — SEÇÃO CONHEÇA A POUSADA
+   Mesmo efeito da seção Nossos Quartos
+========================================= */
+
+/* TRANSIÇÃO SUAVE DAS FOTOGRAFIAS */
+
+.sobre__foto img {
+    transition: transform 0.5s ease;
+}
+
+/* ZOOM SOMENTE EM DISPOSITIVOS COM MOUSE */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .sobre__foto:hover img {
+        transform: scale(1.035);
+    }
+
+}
+
+/* ACESSIBILIDADE: MOVIMENTO REDUZIDO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sobre__foto img {
+        transition: none;
+        transform: none;
+    }
+
+    .sobre__foto:hover img {
+        transform: none;
+    }
+
 }
 
 /* =========================================
@@ -1476,6 +1545,48 @@ html.js .banner__imagem.banner__elemento--visivel {
     background-color: #e8e1d5;
 }
 
+/* =========================================
+   MOVIMENTO SUAVE — SEÇÃO CAFÉ DA MANHÃ
+   Mesmo efeito da seção Nossos Quartos
+========================================= */
+
+/* CONTÊINER DAS FOTOGRAFIAS */
+
+.cafe-da-manha__item {
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* TRANSIÇÃO SUAVE DAS IMAGENS */
+
+.cafe-da-manha__imagem {
+    transition: transform 0.5s ease;
+}
+
+/* ZOOM SOMENTE EM DISPOSITIVOS COM MOUSE */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .cafe-da-manha__item:hover .cafe-da-manha__imagem {
+        transform: scale(1.035);
+    }
+
+}
+
+/* ACESSIBILIDADE: MOVIMENTO REDUZIDO */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cafe-da-manha__imagem {
+        transition: none;
+        transform: none;
+    }
+
+    .cafe-da-manha__item:hover .cafe-da-manha__imagem {
+        transform: none;
+    }
+
+}
 /* BOTÃO DE RESERVA */
 
 .cafe-da-manha__agendamento {
@@ -1938,4 +2049,14 @@ html.js .quartos__elemento--visivel {
         transform: none;
     }
 
+}
+/* LINK — ANALIMAR TECH */
+
+.rodape__credito-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.rodape__credito-link:hover {
+    text-decoration: underline;
 }

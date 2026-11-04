@@ -120,116 +120,396 @@ if (imagemBanner && conteudoBanner) {
     }
 }
 
-
 /* ========================================
-   ANIMAÇÃO — CONHEÇA A POUSADA
-   Segue o padrão visual do banner
+   ANIMAÇÃO DO BANNER — POUSADA ALVORADA
+   Foto primeiro; textos em sequência
 ======================================== */
 
-const secaoSobre = document.querySelector(".sobre");
+const secaoBanner = document.querySelector(".banner");
 
-if (secaoSobre) {
-    const elementosSobre = secaoSobre.querySelectorAll(
-        ".sobre__titulo, " +
-        ".sobre__detalhe, " +
-        ".sobre__descricao, " +
-        ".sobre__foto, " +
-        ".sobre__botao"
+if (secaoBanner) {
+
+    const imagemBanner = secaoBanner.querySelector(
+        ".banner__imagem"
     );
 
-    const movimentoReduzidoSobre = window.matchMedia(
+    const conteudoBanner = secaoBanner.querySelector(
+        ".banner__conteudo"
+    );
+
+    const elementosTexto = conteudoBanner
+        ? conteudoBanner.querySelectorAll(
+            ".banner__titulo, " +
+            ".banner__subtitulo, " +
+            ".banner__detalhe, " +
+            ".banner__descricao, " +
+            ".banner__botao"
+        )
+        : [];
+
+    const movimentoReduzido = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    if (movimentoReduzidoSobre) {
-        elementosSobre.forEach((elemento) => {
-            elemento.classList.add(
-                "sobre__elemento--visivel"
-            );
+    /* ------------------------------------
+       ACESSIBILIDADE
+       Movimento reduzido
+    ------------------------------------ */
+
+    function mostrarBannerImediatamente() {
+
+        if (imagemBanner) {
+            imagemBanner.style.opacity = "1";
+            imagemBanner.style.transform = "none";
+            imagemBanner.style.transition = "none";
+        }
+
+        if (conteudoBanner) {
+            conteudoBanner.style.opacity = "1";
+            conteudoBanner.style.transform = "none";
+            conteudoBanner.style.transition = "none";
+        }
+
+        elementosTexto.forEach((elemento) => {
+            elemento.style.opacity = "1";
+            elemento.style.transform = "none";
+            elemento.style.transition = "none";
         });
+    }
+
+    if (movimentoReduzido) {
+
+        mostrarBannerImediatamente();
+
     } else {
-        document.documentElement.classList.add("js");
 
-        elementosSobre.forEach((elemento, indice) => {
-            elemento.classList.add("sobre__elemento");
+        /* --------------------------------
+           PREPARAÇÃO DA ANIMAÇÃO
+        -------------------------------- */
 
-            elemento.style.transitionDelay =
-                `${Math.min(indice * 100, 400)}ms`;
+        /* Mantém o conteúdo disponível. */
+        if (conteudoBanner) {
+            conteudoBanner.style.opacity = "1";
+            conteudoBanner.style.transform = "none";
+            conteudoBanner.style.transition = "none";
+        }
+
+        /* Prepara a fotografia para entrar. */
+        if (imagemBanner) {
+            imagemBanner.style.opacity = "0";
+            imagemBanner.style.transform = "translateY(24px)";
+            imagemBanner.style.transition =
+                "opacity 0.9s ease, transform 0.9s ease";
+        }
+
+        /* Prepara os textos para entrarem em sequência. */
+        elementosTexto.forEach((elemento) => {
+            elemento.style.opacity = "0";
+            elemento.style.transform = "translateY(20px)";
+            elemento.style.transition =
+                "opacity 0.8s ease, transform 0.8s ease";
         });
+
+        /* --------------------------------
+           EXECUÇÃO DA ANIMAÇÃO
+        -------------------------------- */
+
+        function iniciarAnimacaoBanner() {
+
+            if (imagemBanner) {
+
+                /* Primeiro: fotografia. */
+                imagemBanner.style.opacity = "1";
+                imagemBanner.style.transform = "translateY(0)";
+            }
+
+            /* Depois: textos, um de cada vez. */
+            elementosTexto.forEach((elemento, indice) => {
+
+                window.setTimeout(() => {
+
+                    elemento.style.opacity = "1";
+                    elemento.style.transform = "translateY(0)";
+
+                }, 650 + (indice * 180));
+
+            });
+        }
+
+        /* --------------------------------
+           OBSERVADOR DA SEÇÃO
+        -------------------------------- */
 
         if ("IntersectionObserver" in window) {
-            const observadorSobre = new IntersectionObserver(
+
+            const observadorBanner = new IntersectionObserver(
+
                 (entradas, observador) => {
+
                     entradas.forEach((entrada) => {
+
                         if (entrada.isIntersecting) {
-                            entrada.target.classList.add(
-                                "sobre__elemento--visivel"
-                            );
+
+                            iniciarAnimacaoBanner();
 
                             observador.unobserve(entrada.target);
                         }
+
                     });
+
                 },
+
                 {
                     threshold: 0.15,
                     rootMargin: "0px 0px -30px 0px"
                 }
+
             );
 
-            elementosSobre.forEach((elemento) => {
-                observadorSobre.observe(elemento);
-            });
+            observadorBanner.observe(secaoBanner);
+
         } else {
-            elementosSobre.forEach((elemento) => {
-                elemento.classList.add(
-                    "sobre__elemento--visivel"
-                );
-            });
+
+            /* Compatibilidade com navegadores antigos. */
+            iniciarAnimacaoBanner();
+
         }
     }
 }
 
 /* ========================================
+   ANIMAÇÃO — CONHEÇA A POUSADA
+   Fotografias primeiro; textos em seguida
+======================================== */
+
+const secaoSobre = document.querySelector(".sobre");
+
+if (secaoSobre) {
+
+    /* Fotografias da galeria */
+    const fotosSobre = secaoSobre.querySelectorAll(
+        ".sobre__foto"
+    );
+
+    /* Textos e botão */
+    const textosSobre = secaoSobre.querySelectorAll(
+        ".sobre__titulo, " +
+        ".sobre__detalhe, " +
+        ".sobre__descricao, " +
+        ".sobre__botao"
+    );
+
+    /* Ordem de entrada: fotos e depois textos */
+    const elementosSobre = [
+        ...fotosSobre,
+        ...textosSobre
+    ];
+
+    const movimentoReduzidoSobre = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    /* ------------------------------------
+       ACESSIBILIDADE
+    ------------------------------------ */
+
+    function mostrarSobreImediatamente() {
+
+        elementosSobre.forEach((elemento) => {
+            elemento.style.opacity = "1";
+            elemento.style.transform = "none";
+            elemento.style.transition = "none";
+        });
+
+    }
+
+    if (movimentoReduzidoSobre) {
+
+        mostrarSobreImediatamente();
+
+    } else {
+
+        /* --------------------------------
+           PREPARAÇÃO DOS ELEMENTOS
+        -------------------------------- */
+
+        elementosSobre.forEach((elemento) => {
+
+            elemento.style.opacity = "0";
+            elemento.style.transform = "translateY(24px)";
+
+            elemento.style.transition =
+                "opacity 0.8s ease, transform 0.8s ease";
+
+        });
+
+        /* --------------------------------
+           ENTRADA DAS FOTOGRAFIAS E TEXTOS
+        -------------------------------- */
+
+        function iniciarAnimacaoSobre() {
+
+            elementosSobre.forEach((elemento, indice) => {
+
+                const intervalo = 180;
+                const inicioTextos = 550;
+
+                const atraso = indice < fotosSobre.length
+                    ? indice * intervalo
+                    : inicioTextos +
+                      (indice - fotosSobre.length) * intervalo;
+
+                window.setTimeout(() => {
+
+                    elemento.style.opacity = "1";
+                    elemento.style.transform = "translateY(0)";
+
+                }, atraso);
+
+            });
+
+        }
+
+        /* --------------------------------
+           OBSERVADOR DA SEÇÃO
+        -------------------------------- */
+
+        if ("IntersectionObserver" in window) {
+
+            const observadorSobre = new IntersectionObserver(
+
+                (entradas, observador) => {
+
+                    entradas.forEach((entrada) => {
+
+                        if (entrada.isIntersecting) {
+
+                            iniciarAnimacaoSobre();
+
+                            observador.unobserve(entrada.target);
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.15,
+                    rootMargin: "0px 0px -30px 0px"
+                }
+
+            );
+
+            observadorSobre.observe(secaoSobre);
+
+        } else {
+
+            /* Compatibilidade com navegadores antigos */
+            iniciarAnimacaoSobre();
+
+        }
+
+    }
+
+}
+
+/* ========================================
    ANIMAÇÃO — NOSSOS QUARTOS
-   Entrada suave e sequencial
+   Fotografias primeiro; textos em seguida
 ======================================== */
 
 const secaoQuartos = document.querySelector(".quartos");
 
 if (secaoQuartos) {
 
-    const elementosQuartos = secaoQuartos.querySelectorAll(
+    /* Fotografias dos quartos */
+    const fotosQuartos = secaoQuartos.querySelectorAll(
+        ".quartos__item"
+    );
+
+    /* Título, detalhe, descrição e botão */
+    const textosQuartos = secaoQuartos.querySelectorAll(
         ".quartos__titulo, " +
         ".quartos__detalhe, " +
         ".quartos__descricao, " +
-        ".quartos__item, " +
-        ".quartos__agendamento"
+        ".quartos__botao"
     );
+
+    /* Ordem de entrada: fotos e depois textos */
+    const elementosQuartos = [
+        ...fotosQuartos,
+        ...textosQuartos
+    ];
 
     const movimentoReduzidoQuartos = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    if (movimentoReduzidoQuartos) {
+    /* ------------------------------------
+       ACESSIBILIDADE
+    ------------------------------------ */
+
+    function mostrarQuartosImediatamente() {
 
         elementosQuartos.forEach((elemento) => {
-            elemento.classList.add(
-                "quartos__elemento--visivel"
-            );
+            elemento.style.opacity = "1";
+            elemento.style.transform = "none";
+            elemento.style.transition = "none";
         });
+
+    }
+
+    if (movimentoReduzidoQuartos) {
+
+        mostrarQuartosImediatamente();
 
     } else {
 
-        document.documentElement.classList.add("js");
+        /* --------------------------------
+           PREPARAÇÃO DOS ELEMENTOS
+        -------------------------------- */
 
-        elementosQuartos.forEach((elemento, indice) => {
+        elementosQuartos.forEach((elemento) => {
 
-            elemento.classList.add("quartos__elemento");
+            elemento.style.opacity = "0";
+            elemento.style.transform = "translateY(24px)";
 
-            elemento.style.transitionDelay =
-                `${Math.min(indice * 120, 600)}ms`;
+            elemento.style.transition =
+                "opacity 0.8s ease, transform 0.8s ease";
 
         });
+
+        /* --------------------------------
+           ENTRADA DAS FOTOGRAFIAS E TEXTOS
+        -------------------------------- */
+
+        function iniciarAnimacaoQuartos() {
+
+            elementosQuartos.forEach((elemento, indice) => {
+
+                const intervalo = 180;
+                const inicioTextos = 650;
+
+                const atraso = indice < fotosQuartos.length
+                    ? indice * intervalo
+                    : inicioTextos +
+                      (indice - fotosQuartos.length) * intervalo;
+
+                window.setTimeout(() => {
+
+                    elemento.style.opacity = "1";
+                    elemento.style.transform = "translateY(0)";
+
+                }, atraso);
+
+            });
+
+        }
+
+        /* --------------------------------
+           OBSERVADOR DA SEÇÃO
+        -------------------------------- */
 
         if ("IntersectionObserver" in window) {
 
@@ -241,9 +521,7 @@ if (secaoQuartos) {
 
                         if (entrada.isIntersecting) {
 
-                            entrada.target.classList.add(
-                                "quartos__elemento--visivel"
-                            );
+                            iniciarAnimacaoQuartos();
 
                             observador.unobserve(entrada.target);
 
@@ -260,17 +538,135 @@ if (secaoQuartos) {
 
             );
 
-            elementosQuartos.forEach((elemento) => {
-                observadorQuartos.observe(elemento);
-            });
+            observadorQuartos.observe(secaoQuartos);
 
         } else {
 
-            elementosQuartos.forEach((elemento) => {
-                elemento.classList.add(
-                    "quartos__elemento--visivel"
-                );
+            /* Compatibilidade com navegadores antigos */
+            iniciarAnimacaoQuartos();
+
+        }
+
+    }
+
+}
+/* ========================================
+   ANIMAÇÃO — CAFÉ DA MANHÃ
+   Fotografias primeiro; textos em seguida
+======================================== */
+
+const secaoCafe = document.querySelector(".cafe-da-manha");
+
+if (secaoCafe) {
+
+    /* Fotografias */
+    const fotosCafe = secaoCafe.querySelectorAll(
+        ".cafe-da-manha__item"
+    );
+
+    /* Textos e botão */
+    const textosCafe = secaoCafe.querySelectorAll(
+        ".cafe-da-manha__titulo, " +
+        ".cafe-da-manha__detalhe, " +
+        ".cafe-da-manha__descricao, " +
+        ".cafe-da-manha__agendamento"
+    );
+
+    /* Ordem: fotografias e depois textos */
+    const elementosCafe = [
+        ...fotosCafe,
+        ...textosCafe
+    ];
+
+    const movimentoReduzidoCafe = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    /* Acessibilidade */
+    function mostrarCafeImediatamente() {
+
+        elementosCafe.forEach((elemento) => {
+            elemento.style.opacity = "1";
+            elemento.style.transform = "none";
+            elemento.style.transition = "none";
+        });
+
+    }
+
+    if (movimentoReduzidoCafe) {
+
+        mostrarCafeImediatamente();
+
+    } else {
+
+        /* Preparação dos elementos */
+        elementosCafe.forEach((elemento) => {
+
+            elemento.style.opacity = "0";
+            elemento.style.transform = "translateY(24px)";
+
+            elemento.style.transition =
+                "opacity 0.8s ease, transform 0.8s ease";
+
+        });
+
+        /* Entrada sequencial */
+        function iniciarAnimacaoCafe() {
+
+            elementosCafe.forEach((elemento, indice) => {
+
+                const intervalo = 180;
+                const inicioTextos = 650;
+
+                const atraso = indice < fotosCafe.length
+                    ? indice * intervalo
+                    : inicioTextos +
+                      (indice - fotosCafe.length) * intervalo;
+
+                window.setTimeout(() => {
+
+                    elemento.style.opacity = "1";
+                    elemento.style.transform = "translateY(0)";
+
+                }, atraso);
+
             });
+
+        }
+
+        /* Observa a seção */
+        if ("IntersectionObserver" in window) {
+
+            const observadorCafe = new IntersectionObserver(
+
+                (entradas, observador) => {
+
+                    entradas.forEach((entrada) => {
+
+                        if (entrada.isIntersecting) {
+
+                            iniciarAnimacaoCafe();
+
+                            observador.unobserve(entrada.target);
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.15,
+                    rootMargin: "0px 0px -30px 0px"
+                }
+
+            );
+
+            observadorCafe.observe(secaoCafe);
+
+        } else {
+
+            iniciarAnimacaoCafe();
 
         }
 
