@@ -125,7 +125,7 @@ button {
     font-weight: 700;
 }
 
-.navegacao__link[aria-current="page"] {
+.navegacao__link[aria-current="page"]:not(:hover) {
     color: var(--cor-verde-escuro);
 }
 
